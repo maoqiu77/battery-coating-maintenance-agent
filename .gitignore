@@ -1,0 +1,30 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.env
+.env.*
+!.env.example
+.DS_Store
+data/
+tmp/
+*.sqlite3*
+.playwright-cli/
+
+# Publish selected simulation evidence, not generated model binaries or local runs.
+artifacts/*
+!artifacts/agent-evaluation.json
+!artifacts/agent-llm-evaluation.json
+!artifacts/agent-llm-paced.json
+!artifacts/agent-llm-recheck.json
+!artifacts/agent-llm-batch-limited.json
+!artifacts/agent-llm-smoke.json
+!artifacts/evaluation.json
+!artifacts/model-report.json
+
+# Resumes and other private outputs stay local. Only these demo images are public.
+output/*
+!output/playwright/
+output/playwright/*
+!output/playwright/agent-mixed-llm.png
+!output/playwright/agent-mobile-llm.png

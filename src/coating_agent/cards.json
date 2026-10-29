@@ -1,0 +1,16 @@
+[
+  {"id":"K01","title":"极片涂布与局部阻塞","kind":"公开资料","source":"https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/batt.202200239","text":"浆料团聚可能造成涂布模头局部阻塞和条纹，具体表现依设备和材料而异。"},
+  {"id":"K02","title":"模拟供浆阻力","kind":"项目假设","source":"docs/superpowers/specs/2026-10-27-coating-supply-agent-design.md","text":"本模拟器中阻力增长可导致压力上升且流量下降；不代表实际设备因果关系。"},
+  {"id":"K03","title":"压力传感器偏差","kind":"项目假设","source":"docs/superpowers/specs/2026-10-27-coating-supply-agent-design.md","text":"模拟压力传感器偏差可能使压力读数上升，即使流量稳定；需检查传感器。"},
+  {"id":"K04","title":"缺失数据","kind":"模拟规则","source":"src/coating_agent/planner.py","text":"观测缺失过多时无法确认设备故障原因，不应据此执行流路清理或泵处置。独立采集检查确认缺失后，可申请人工确认的模拟采集恢复，再用新窗口复核。"},
+  {"id":"K05","title":"模拟清理","kind":"模拟规则","source":"docs/superpowers/specs/2026-10-27-coating-supply-agent-design.md","text":"模拟阻力清理需要人工确认且必须检查处置后数据。"},
+  {"id":"K06","title":"涂布质量","kind":"公开资料","source":"https://www.mdpi.com/2313-0105/9/2/111","text":"电极涂布缺陷可能来自材料、设备与工艺的多种因素，不能仅凭单一指标断言原因。"},
+  {"id":"K07","title":"供浆模型边界","kind":"项目假设","source":"docs/superpowers/specs/2026-10-27-coating-supply-agent-design.md","text":"泵速、流量、压力关系是无量纲简化模型，不应用于生产配方。"},
+  {"id":"K08","title":"泵效率下降","kind":"项目假设","source":"docs/superpowers/specs/2026-10-27-coating-supply-agent-design.md","text":"模拟泵效率下降可使流量降低，需要检查泵和压力读数。"},
+  {"id":"K09","title":"参数优化限制","kind":"模拟规则","source":"docs/superpowers/specs/2026-10-27-coating-supply-agent-design.md","text":"参数实验必须限定泵速步长、流量和压力，结果仅用于模拟。"},
+  {"id":"K10","title":"证据与不确定性","kind":"模拟规则","source":"docs/superpowers/specs/2026-10-27-coating-supply-agent-design.md","text":"诊断必须标注观测和知识来源，压力流量不足以唯一确定设备故障。"},
+  {"id":"K11","title":"模拟压力校准","kind":"模拟规则","source":"src/coating_agent/simulator.py","text":"压力传感器读数与模拟独立参考的偏差绝对值超过0.15时，可申请calibrate_pressure。此模拟校准必须经人工确认，只影响后续观测，并需独立窗口复核；不是实际仪表校准规范。"},
+  {"id":"K12","title":"模拟泵性能恢复","kind":"模拟规则","source":"src/coating_agent/simulator.py","text":"流量偏低且模拟独立空载台架的效率比低于0.9时，可申请service_pump。此模拟泵维护必须经人工确认，只改变后续仿真，不代表真实设备维修方式。"},
+  {"id":"K13","title":"模拟采集恢复","kind":"模拟规则","source":"src/coating_agent/simulator.py","text":"最近30点数据缺失且独立采集检查完整率低于0.8时，可申请restore_acquisition。模拟采集恢复必须经人工确认，不补写历史缺失数据，续跑新窗口后才能复核质量。"},
+  {"id":"K14","title":"供浆 Agent 计划与确认边界","kind":"模拟规则","source":"src/coating_agent/planner.py","text":"Agent只能自主调用只读观测、知识检索及模拟检查工具。清理、校准、泵维护和采集恢复均只是待审批的模拟动作计划；必须人工确认并独立复核，失败不得无界重复。只诊断目标不得申请写动作。"}
+]

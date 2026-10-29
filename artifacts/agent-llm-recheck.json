@@ -1,0 +1,883 @@
+{
+  "schema_version": 2,
+  "generated_at_utc": "2026-10-29T06:53:29.317412+00:00",
+  "mode": "llm",
+  "seed": 42,
+  "storage": "isolated_in_memory",
+  "approval_mode": "test_harness",
+  "max_actions_per_case": 4,
+  "observation_minutes": 180,
+  "post_action_minutes": 30,
+  "verification_window_minutes": 20,
+  "control_design": "相同处置前模拟状态、共同过程随机扰动；处理组和无动作对照分别推进30分钟，比较末20分钟窗口。恢复采集额外涂布量通道使用独立确定性噪声。",
+  "summary": {
+    "total_cases": 3,
+    "passed_cases": 2,
+    "model_calls": 9,
+    "model_attempts": 9,
+    "model_completed_calls": 9,
+    "cases_with_planning_warnings": 2,
+    "tool_calls": 56
+  },
+  "cases": [
+    {
+      "case": "mixed",
+      "scenario": "mixed",
+      "seed": 42,
+      "requested_mode": "llm",
+      "approval_mode": "test_harness",
+      "automatic_fixture_approval": true,
+      "expected": {
+        "agent_status": "RESOLVED",
+        "actions": [
+          "clean_blockage",
+          "calibrate_pressure"
+        ]
+      },
+      "passed": true,
+      "error": null,
+      "actual_planner_sources": [
+        "llm"
+      ],
+      "last_planner_source": "llm",
+      "model_calls": 4,
+      "model_attempts": 4,
+      "model_completed_calls": 4,
+      "model_uncompleted_attempts": 0,
+      "planning_warnings": [],
+      "tool_calls": 24,
+      "planning_cycles": 2,
+      "actions": [
+        "clean_blockage",
+        "calibrate_pressure"
+      ],
+      "approval_requests": 2,
+      "approvals": [
+        {
+          "approval_mode": "test_harness",
+          "action": "clean_blockage",
+          "approved": true,
+          "simulated_success": true,
+          "clock": 180
+        },
+        {
+          "approval_mode": "test_harness",
+          "action": "calibrate_pressure",
+          "approved": true,
+          "simulated_success": true,
+          "clock": 210
+        }
+      ],
+      "agent_final_status": "RESOLVED",
+      "session_final_state": "RESOLVED",
+      "clock": 240,
+      "initial_observation": {
+        "sample_count": 30,
+        "valid_count": 30,
+        "completeness": 1.0,
+        "pressure_slope": 0.002249,
+        "flow_slope": -0.002038,
+        "alert": true,
+        "quality": "ok",
+        "severity": "warning",
+        "signal_pattern": "pressure_high_flow_low",
+        "pressure_mean": 1.8504,
+        "flow_mean": 0.5388,
+        "reason": "模拟压力偏高且流量偏低"
+      },
+      "before": {
+        "sample_count": 30,
+        "valid_count": 30,
+        "completeness": 1.0,
+        "pressure_slope": -0.007988,
+        "flow_slope": 0.008242,
+        "alert": true,
+        "quality": "ok",
+        "severity": "warning",
+        "signal_pattern": "pressure_high",
+        "pressure_mean": 1.5132,
+        "flow_mean": 0.8724,
+        "reason": "模拟压力偏高，流量未触发低值阈值"
+      },
+      "after": {
+        "sample_count": 20,
+        "valid_count": 20,
+        "completeness": 1.0,
+        "pressure_slope": -7.4e-05,
+        "flow_slope": 0.000185,
+        "alert": false,
+        "quality": "ok",
+        "severity": "normal",
+        "signal_pattern": "normal",
+        "pressure_mean": 1.0527,
+        "flow_mean": 0.9236,
+        "reason": "模拟状态正常"
+      },
+      "control": {
+        "sample_count": 20,
+        "valid_count": 20,
+        "completeness": 1.0,
+        "pressure_slope": -7.4e-05,
+        "flow_slope": 0.000185,
+        "alert": true,
+        "quality": "ok",
+        "severity": "warning",
+        "signal_pattern": "pressure_high",
+        "pressure_mean": 1.4527,
+        "flow_mean": 0.9236,
+        "reason": "模拟压力偏高，流量未触发低值阈值"
+      },
+      "comparison_scope": "last_action_only",
+      "effects": [
+        {
+          "action": "clean_blockage",
+          "label": "模拟清理供浆阻力",
+          "before": {
+            "sample_count": 30,
+            "valid_count": 30,
+            "completeness": 1.0,
+            "pressure_slope": 0.002249,
+            "flow_slope": -0.002038,
+            "alert": true,
+            "quality": "ok",
+            "severity": "warning",
+            "signal_pattern": "pressure_high_flow_low",
+            "pressure_mean": 1.8504,
+            "flow_mean": 0.5388,
+            "reason": "模拟压力偏高且流量偏低"
+          },
+          "control": {
+            "sample_count": 20,
+            "valid_count": 20,
+            "completeness": 1.0,
+            "pressure_slope": 0.001509,
+            "flow_slope": -0.000905,
+            "alert": true,
+            "quality": "ok",
+            "severity": "warning",
+            "signal_pattern": "pressure_high_flow_low",
+            "pressure_mean": 1.9241,
+            "flow_mean": 0.4703,
+            "reason": "模拟压力偏高且流量偏低"
+          },
+          "before_clock": 180,
+          "after": {
+            "sample_count": 20,
+            "valid_count": 20,
+            "completeness": 1.0,
+            "pressure_slope": -0.001888,
+            "flow_slope": 0.002435,
+            "alert": true,
+            "quality": "ok",
+            "severity": "warning",
+            "signal_pattern": "pressure_high",
+            "pressure_mean": 1.4665,
+            "flow_mean": 0.9203,
+            "reason": "模拟压力偏高，流量未触发低值阈值"
+          },
+          "recovered": false,
+          "clock": 210
+        },
+        {
+          "action": "calibrate_pressure",
+          "label": "模拟校准压力传感器",
+          "before": {
+            "sample_count": 30,
+            "valid_count": 30,
+            "completeness": 1.0,
+            "pressure_slope": -0.007988,
+            "flow_slope": 0.008242,
+            "alert": true,
+            "quality": "ok",
+            "severity": "warning",
+            "signal_pattern": "pressure_high",
+            "pressure_mean": 1.5132,
+            "flow_mean": 0.8724,
+            "reason": "模拟压力偏高，流量未触发低值阈值"
+          },
+          "control": {
+            "sample_count": 20,
+            "valid_count": 20,
+            "completeness": 1.0,
+            "pressure_slope": -7.4e-05,
+            "flow_slope": 0.000185,
+            "alert": true,
+            "quality": "ok",
+            "severity": "warning",
+            "signal_pattern": "pressure_high",
+            "pressure_mean": 1.4527,
+            "flow_mean": 0.9236,
+            "reason": "模拟压力偏高，流量未触发低值阈值"
+          },
+          "before_clock": 210,
+          "after": {
+            "sample_count": 20,
+            "valid_count": 20,
+            "completeness": 1.0,
+            "pressure_slope": -7.4e-05,
+            "flow_slope": 0.000185,
+            "alert": false,
+            "quality": "ok",
+            "severity": "normal",
+            "signal_pattern": "normal",
+            "pressure_mean": 1.0527,
+            "flow_mean": 0.9236,
+            "reason": "模拟状态正常"
+          },
+          "recovered": true,
+          "clock": 240
+        }
+      ],
+      "decisions": [
+        {
+          "intent": "request_approval",
+          "reason": "30个有效观测显示高压低流，独立参考压力1.48332>1.17，且存在压力偏差；混合异常优先申请模拟清理，审批后在新窗口复核偏差。仅为模拟计划，不代表实际设备故障或现场操作建议。",
+          "action": "clean_blockage",
+          "evidence_ids": [
+            "O1",
+            "K02",
+            "K05",
+            "T_PRESSURE"
+          ],
+          "source": "llm"
+        },
+        {
+          "intent": "request_approval",
+          "reason": "当前30个有效观测显示高压、流量未触发低值；独立压力偏差0.40328，超过0.15。申请模拟压力校准审批；此前清理复核未恢复，不重复清理。模拟证据不代表真实设备故障。",
+          "action": "calibrate_pressure",
+          "evidence_ids": [
+            "O1",
+            "K03",
+            "T_PRESSURE"
+          ],
+          "source": "llm"
+        }
+      ],
+      "inspection_evidence": [
+        {
+          "tool": "inspect_pressure",
+          "result": {
+            "id": "T_PRESSURE",
+            "kind": "模拟检查",
+            "tool": "inspect_pressure",
+            "data": {
+              "measured_pressure": 1.8836,
+              "reference_pressure": 1.48332,
+              "deviation": 0.40028
+            },
+            "limitation": "仅为模拟独立检查，不是实际设备测量。",
+            "clock": 180
+          }
+        },
+        {
+          "tool": "inspect_pump",
+          "result": {
+            "id": "T_PUMP",
+            "kind": "模拟检查",
+            "tool": "inspect_pump",
+            "data": {
+              "expected_flow": 0.9715,
+              "measured_flow": 0.9715,
+              "efficiency_ratio": 1.0
+            },
+            "limitation": "仅为模拟独立检查，不是实际设备测量。",
+            "clock": 180
+          }
+        },
+        {
+          "tool": "inspect_acquisition",
+          "result": {
+            "id": "T_ACQUISITION",
+            "kind": "模拟检查",
+            "tool": "inspect_acquisition",
+            "data": {
+              "completeness": 1.0,
+              "sample_count": 30,
+              "valid_count": 30
+            },
+            "limitation": "仅为模拟独立检查，不是实际设备测量。",
+            "clock": 180
+          }
+        },
+        {
+          "tool": "inspect_pressure",
+          "result": {
+            "id": "T_PRESSURE",
+            "kind": "模拟检查",
+            "tool": "inspect_pressure",
+            "data": {
+              "measured_pressure": 1.45859,
+              "reference_pressure": 1.05531,
+              "deviation": 0.40328
+            },
+            "limitation": "仅为模拟独立检查，不是实际设备测量。",
+            "clock": 210
+          }
+        }
+      ],
+      "trace_nodes": [
+        "start",
+        "observe",
+        "observe",
+        "observe",
+        "observe",
+        "observe",
+        "observe",
+        "observe",
+        "detect",
+        "gather",
+        "plan",
+        "model",
+        "model",
+        "tool_start",
+        "tool",
+        "tool_start",
+        "tool",
+        "tool_start",
+        "tool",
+        "tool_start",
+        "tool",
+        "tool_start",
+        "tool",
+        "model",
+        "model",
+        "tool_start",
+        "tool",
+        "decision",
+        "approval",
+        "approval",
+        "execute",
+        "verify",
+        "replan",
+        "observe",
+        "detect",
+        "gather",
+        "plan",
+        "model",
+        "model",
+        "tool_start",
+        "tool",
+        "tool_start",
+        "tool",
+        "tool_start",
+        "tool",
+        "model",
+        "model",
+        "tool_start",
+        "tool",
+        "decision",
+        "approval",
+        "approval",
+        "execute",
+        "verify",
+        "resolved"
+      ],
+      "notifications": [
+        {
+          "id": "66f42f9aa84941a084a9e2edccdf3b51",
+          "level": "warning",
+          "title": "需要审批模拟动作",
+          "message": "模拟清理供浆阻力：确认后才会执行，并自动进行独立窗口复核。",
+          "acknowledged": false,
+          "clock": 180
+        },
+        {
+          "id": "5250e2b60d3a4fd8b4f33abc9f4437ce",
+          "level": "warning",
+          "title": "需要审批模拟动作",
+          "message": "模拟校准压力传感器：确认后才会执行，并自动进行独立窗口复核。",
+          "acknowledged": false,
+          "clock": 210
+        },
+        {
+          "id": "2b14a545a95f45d990193284b8bf0cdd",
+          "level": "success",
+          "title": "模拟工况已恢复",
+          "message": "处置后独立 20 分钟窗口通过复核；报告已保存动作、对照和证据。",
+          "acknowledged": false,
+          "clock": 240
+        }
+      ],
+      "notification_delivery": "local_in_app_only",
+      "limitation": "固定种子的简化模拟案例；审批由隔离评测夹具提供，不代表真实人工授权或产线效果。"
+    },
+    {
+      "case": "failed_action",
+      "scenario": "blockage",
+      "seed": 42,
+      "requested_mode": "llm",
+      "approval_mode": "test_harness",
+      "automatic_fixture_approval": true,
+      "expected": "执行一次失败清理、复核未恢复、重新规划后转人工；不重复清理",
+      "passed": false,
+      "error": null,
+      "actual_planner_sources": [
+        "llm",
+        "llm_unavailable"
+      ],
+      "last_planner_source": "llm_unavailable",
+      "model_calls": 3,
+      "model_attempts": 3,
+      "model_completed_calls": 3,
+      "model_uncompleted_attempts": 0,
+      "planning_warnings": [
+        {
+          "cycle": 2,
+          "source": "llm_unavailable",
+          "category": "handoff",
+          "exception_type": null,
+          "message": "本轮按证据或流程约束转交人员继续处理。"
+        }
+      ],
+      "tool_calls": 18,
+      "planning_cycles": 2,
+      "actions": [
+        "clean_blockage"
+      ],
+      "approval_requests": 1,
+      "approvals": [
+        {
+          "approval_mode": "test_harness",
+          "action": "clean_blockage",
+          "approved": true,
+          "simulated_success": false,
+          "clock": 180
+        }
+      ],
+      "agent_final_status": "ESCALATED",
+      "session_final_state": "UNRESOLVED",
+      "clock": 210,
+      "initial_observation": {
+        "sample_count": 30,
+        "valid_count": 30,
+        "completeness": 1.0,
+        "pressure_slope": 0.002249,
+        "flow_slope": -0.002038,
+        "alert": true,
+        "quality": "ok",
+        "severity": "warning",
+        "signal_pattern": "pressure_high_flow_low",
+        "pressure_mean": 1.4504,
+        "flow_mean": 0.5388,
+        "reason": "模拟压力偏高且流量偏低"
+      },
+      "before": {
+        "sample_count": 30,
+        "valid_count": 30,
+        "completeness": 1.0,
+        "pressure_slope": 0.002249,
+        "flow_slope": -0.002038,
+        "alert": true,
+        "quality": "ok",
+        "severity": "warning",
+        "signal_pattern": "pressure_high_flow_low",
+        "pressure_mean": 1.4504,
+        "flow_mean": 0.5388,
+        "reason": "模拟压力偏高且流量偏低"
+      },
+      "after": {
+        "sample_count": 20,
+        "valid_count": 20,
+        "completeness": 1.0,
+        "pressure_slope": 0.001509,
+        "flow_slope": -0.000905,
+        "alert": true,
+        "quality": "ok",
+        "severity": "warning",
+        "signal_pattern": "pressure_high_flow_low",
+        "pressure_mean": 1.5241,
+        "flow_mean": 0.4703,
+        "reason": "模拟压力偏高且流量偏低"
+      },
+      "control": {
+        "sample_count": 20,
+        "valid_count": 20,
+        "completeness": 1.0,
+        "pressure_slope": 0.001509,
+        "flow_slope": -0.000905,
+        "alert": true,
+        "quality": "ok",
+        "severity": "warning",
+        "signal_pattern": "pressure_high_flow_low",
+        "pressure_mean": 1.5241,
+        "flow_mean": 0.4703,
+        "reason": "模拟压力偏高且流量偏低"
+      },
+      "comparison_scope": "last_action_only",
+      "effects": [
+        {
+          "action": "clean_blockage",
+          "label": "模拟清理供浆阻力",
+          "before": {
+            "sample_count": 30,
+            "valid_count": 30,
+            "completeness": 1.0,
+            "pressure_slope": 0.002249,
+            "flow_slope": -0.002038,
+            "alert": true,
+            "quality": "ok",
+            "severity": "warning",
+            "signal_pattern": "pressure_high_flow_low",
+            "pressure_mean": 1.4504,
+            "flow_mean": 0.5388,
+            "reason": "模拟压力偏高且流量偏低"
+          },
+          "control": {
+            "sample_count": 20,
+            "valid_count": 20,
+            "completeness": 1.0,
+            "pressure_slope": 0.001509,
+            "flow_slope": -0.000905,
+            "alert": true,
+            "quality": "ok",
+            "severity": "warning",
+            "signal_pattern": "pressure_high_flow_low",
+            "pressure_mean": 1.5241,
+            "flow_mean": 0.4703,
+            "reason": "模拟压力偏高且流量偏低"
+          },
+          "before_clock": 180,
+          "after": {
+            "sample_count": 20,
+            "valid_count": 20,
+            "completeness": 1.0,
+            "pressure_slope": 0.001509,
+            "flow_slope": -0.000905,
+            "alert": true,
+            "quality": "ok",
+            "severity": "warning",
+            "signal_pattern": "pressure_high_flow_low",
+            "pressure_mean": 1.5241,
+            "flow_mean": 0.4703,
+            "reason": "模拟压力偏高且流量偏低"
+          },
+          "recovered": false,
+          "clock": 210
+        }
+      ],
+      "decisions": [
+        {
+          "intent": "request_approval",
+          "reason": "30个有效观测显示模拟高压低流，独立参考压力1.48332大于1.17；申请模拟清理审批，处置后须在新窗口重新取证复核。模拟结果不代表真实设备故障。",
+          "action": "clean_blockage",
+          "evidence_ids": [
+            "O1",
+            "K02",
+            "K05",
+            "T_PRESSURE"
+          ],
+          "source": "llm"
+        },
+        {
+          "intent": "escalate",
+          "reason": "LLM规划未完成或未通过证据校验，需要检查配置或由人员接管。",
+          "action": null,
+          "evidence_ids": [],
+          "source": "llm_unavailable",
+          "error_code": "model_response_too_many_tools",
+          "warning": "LLM规划停止（model_response_too_many_tools）：模型单轮返回的工具数超过限制。未执行任何动作，也未替换为规则动作。"
+        }
+      ],
+      "inspection_evidence": [
+        {
+          "tool": "inspect_pressure",
+          "result": {
+            "id": "T_PRESSURE",
+            "kind": "模拟检查",
+            "tool": "inspect_pressure",
+            "data": {
+              "measured_pressure": 1.4836,
+              "reference_pressure": 1.48332,
+              "deviation": 0.00028
+            },
+            "limitation": "仅为模拟独立检查，不是实际设备测量。",
+            "clock": 180
+          }
+        },
+        {
+          "tool": "inspect_pump",
+          "result": {
+            "id": "T_PUMP",
+            "kind": "模拟检查",
+            "tool": "inspect_pump",
+            "data": {
+              "expected_flow": 0.9715,
+              "measured_flow": 0.9715,
+              "efficiency_ratio": 1.0
+            },
+            "limitation": "仅为模拟独立检查，不是实际设备测量。",
+            "clock": 180
+          }
+        },
+        {
+          "tool": "inspect_acquisition",
+          "result": {
+            "id": "T_ACQUISITION",
+            "kind": "模拟检查",
+            "tool": "inspect_acquisition",
+            "data": {
+              "completeness": 1.0,
+              "sample_count": 30,
+              "valid_count": 30
+            },
+            "limitation": "仅为模拟独立检查，不是实际设备测量。",
+            "clock": 180
+          }
+        }
+      ],
+      "trace_nodes": [
+        "start",
+        "observe",
+        "observe",
+        "observe",
+        "observe",
+        "observe",
+        "observe",
+        "observe",
+        "detect",
+        "gather",
+        "plan",
+        "model",
+        "model",
+        "tool_start",
+        "tool",
+        "tool_start",
+        "tool",
+        "tool_start",
+        "tool",
+        "tool_start",
+        "tool",
+        "tool_start",
+        "tool",
+        "model",
+        "model",
+        "tool_start",
+        "tool",
+        "decision",
+        "approval",
+        "approval",
+        "execute",
+        "verify",
+        "replan",
+        "observe",
+        "detect",
+        "gather",
+        "plan",
+        "model",
+        "model",
+        "decision",
+        "escalate"
+      ],
+      "notifications": [
+        {
+          "id": "da33efdef3494a72b032b9c8d307a8f9",
+          "level": "warning",
+          "title": "需要审批模拟动作",
+          "message": "模拟清理供浆阻力：确认后才会执行，并自动进行独立窗口复核。",
+          "acknowledged": false,
+          "clock": 180
+        },
+        {
+          "id": "8a7a4fb898c34ddbbfe09fa90b660bdc",
+          "level": "warning",
+          "title": "需要人员继续处理",
+          "message": "LLM规划停止（model_response_too_many_tools）：模型单轮返回的工具数超过限制。未执行任何动作，也未替换为规则动作。",
+          "acknowledged": false,
+          "clock": 210
+        }
+      ],
+      "notification_delivery": "local_in_app_only",
+      "limitation": "固定种子的简化模拟案例；审批由隔离评测夹具提供，不代表真实人工授权或产线效果。"
+    },
+    {
+      "case": "diagnosis_only",
+      "scenario": "sensor_bias",
+      "seed": 42,
+      "requested_mode": "llm",
+      "approval_mode": "test_harness",
+      "automatic_fixture_approval": false,
+      "expected": "生成诊断/人员待办，但不申请或执行模拟动作",
+      "passed": true,
+      "error": null,
+      "actual_planner_sources": [
+        "llm"
+      ],
+      "last_planner_source": "llm",
+      "model_calls": 2,
+      "model_attempts": 2,
+      "model_completed_calls": 2,
+      "model_uncompleted_attempts": 0,
+      "planning_warnings": [
+        {
+          "cycle": 1,
+          "source": "llm",
+          "category": "handoff",
+          "exception_type": null,
+          "message": "本轮按证据或流程约束转交人员继续处理。"
+        }
+      ],
+      "tool_calls": 14,
+      "planning_cycles": 1,
+      "actions": [],
+      "approval_requests": 0,
+      "approvals": [],
+      "agent_final_status": "ESCALATED",
+      "session_final_state": "UNRESOLVED",
+      "clock": 180,
+      "initial_observation": {
+        "sample_count": 30,
+        "valid_count": 30,
+        "completeness": 1.0,
+        "pressure_slope": 0.000162,
+        "flow_slope": 0.000431,
+        "alert": true,
+        "quality": "ok",
+        "severity": "warning",
+        "signal_pattern": "pressure_high",
+        "pressure_mean": 1.4085,
+        "flow_mean": 0.9706,
+        "reason": "模拟压力偏高，流量未触发低值阈值"
+      },
+      "before": {
+        "sample_count": 30,
+        "valid_count": 30,
+        "completeness": 1.0,
+        "pressure_slope": 0.000162,
+        "flow_slope": 0.000431,
+        "alert": true,
+        "quality": "ok",
+        "severity": "warning",
+        "signal_pattern": "pressure_high",
+        "pressure_mean": 1.4085,
+        "flow_mean": 0.9706,
+        "reason": "模拟压力偏高，流量未触发低值阈值"
+      },
+      "after": {
+        "sample_count": 30,
+        "valid_count": 30,
+        "completeness": 1.0,
+        "pressure_slope": 0.000162,
+        "flow_slope": 0.000431,
+        "alert": true,
+        "quality": "ok",
+        "severity": "warning",
+        "signal_pattern": "pressure_high",
+        "pressure_mean": 1.4085,
+        "flow_mean": 0.9706,
+        "reason": "模拟压力偏高，流量未触发低值阈值"
+      },
+      "control": null,
+      "comparison_scope": "no_action_no_counterfactual",
+      "effects": [],
+      "decisions": [
+        {
+          "intent": "notify_operator",
+          "reason": "目标限定为只诊断，规划结果供人员查看，不申请模拟写动作。",
+          "action": null,
+          "evidence_ids": [
+            "O1",
+            "K03",
+            "K10",
+            "K07",
+            "T_PRESSURE",
+            "T_PUMP",
+            "T_ACQUISITION"
+          ],
+          "source": "llm"
+        }
+      ],
+      "inspection_evidence": [
+        {
+          "tool": "inspect_pressure",
+          "result": {
+            "id": "T_PRESSURE",
+            "kind": "模拟检查",
+            "tool": "inspect_pressure",
+            "data": {
+              "measured_pressure": 1.40239,
+              "reference_pressure": 1.00582,
+              "deviation": 0.39657
+            },
+            "limitation": "仅为模拟独立检查，不是实际设备测量。",
+            "clock": 180
+          }
+        },
+        {
+          "tool": "inspect_pump",
+          "result": {
+            "id": "T_PUMP",
+            "kind": "模拟检查",
+            "tool": "inspect_pump",
+            "data": {
+              "expected_flow": 0.9715,
+              "measured_flow": 0.9715,
+              "efficiency_ratio": 1.0
+            },
+            "limitation": "仅为模拟独立检查，不是实际设备测量。",
+            "clock": 180
+          }
+        },
+        {
+          "tool": "inspect_acquisition",
+          "result": {
+            "id": "T_ACQUISITION",
+            "kind": "模拟检查",
+            "tool": "inspect_acquisition",
+            "data": {
+              "completeness": 1.0,
+              "sample_count": 30,
+              "valid_count": 30
+            },
+            "limitation": "仅为模拟独立检查，不是实际设备测量。",
+            "clock": 180
+          }
+        }
+      ],
+      "trace_nodes": [
+        "start",
+        "observe",
+        "observe",
+        "observe",
+        "observe",
+        "observe",
+        "observe",
+        "observe",
+        "detect",
+        "gather",
+        "plan",
+        "model",
+        "model",
+        "tool_start",
+        "tool",
+        "tool_start",
+        "tool",
+        "tool_start",
+        "tool",
+        "tool_start",
+        "tool",
+        "tool_start",
+        "tool",
+        "model",
+        "model",
+        "tool_start",
+        "tool",
+        "decision",
+        "escalate"
+      ],
+      "notifications": [
+        {
+          "id": "39162b14412b4c9e99880249e917ac8c",
+          "level": "warning",
+          "title": "需要人员继续处理",
+          "message": "目标限定为只诊断，规划结果供人员查看，不申请模拟写动作。",
+          "acknowledged": false,
+          "clock": 180
+        }
+      ],
+      "notification_delivery": "local_in_app_only",
+      "limitation": "固定种子的简化模拟案例；审批由隔离评测夹具提供，不代表真实人工授权或产线效果。"
+    }
+  ],
+  "counter_semantics": "model_calls/model_attempts是发起请求尝试数；model_completed_calls只计成功返回到计划器的响应，旧记录缺失时为null。它们不等于服务端处理量、有效决策数或计费请求数。planning_warnings仅含本地归类及异常类型，不含密钥、服务商错误正文或原始模型输出。",
+  "limitation": "此评测验证模拟流程、来源和审批边界，不是准确率评测、真实设备修复率或工业性能提升证明。LLM模式存在外部调用和不确定性；实际source按每次决策记录，未静默替换为规则。"
+}

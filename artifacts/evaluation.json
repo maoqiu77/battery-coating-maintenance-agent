@@ -1,0 +1,96 @@
+{
+  "retrieval": {
+    "cases": 5,
+    "recall_at_3": 1.0,
+    "mrr": 1.0,
+    "details": [
+      {
+        "query": "模拟 供浆 阻力 压力 流量",
+        "expected": "K02",
+        "hits": [
+          "K02",
+          "K07",
+          "K05"
+        ],
+        "rank": 1
+      },
+      {
+        "query": "压力 传感器 偏差",
+        "expected": "K03",
+        "hits": [
+          "K03",
+          "K02",
+          "K08"
+        ],
+        "rank": 1
+      },
+      {
+        "query": "参数优化 泵速 压力 约束",
+        "expected": "K09",
+        "hits": [
+          "K09",
+          "K07",
+          "K08"
+        ],
+        "rank": 1
+      },
+      {
+        "query": "数据 缺失 故障",
+        "expected": "K04",
+        "hits": [
+          "K04",
+          "K10",
+          "K05"
+        ],
+        "rank": 1
+      },
+      {
+        "query": "电极 涂布 团聚 堵塞 条纹",
+        "expected": "K01",
+        "hits": [
+          "K01",
+          "K06"
+        ],
+        "rank": 1
+      }
+    ]
+  },
+  "unrelated_query": {
+    "query": "电动车胎压怎么处理",
+    "hits": [],
+    "limitation": "单个手写负例"
+  },
+  "cases": {
+    "blockage": {
+      "candidates": [
+        "模拟供浆阻力上升",
+        "压力传感器偏差或其他原因"
+      ],
+      "alert": true
+    },
+    "missing": {
+      "uncertain": true,
+      "candidate_count": 0
+    },
+    "sensor_bias": {
+      "candidates": [
+        "模拟供浆阻力上升",
+        "压力传感器偏差或其他原因"
+      ],
+      "uncertainty": "模拟证据不足以唯一确定原因；需人工检查。"
+    },
+    "failed_action": {
+      "state": "UNRESOLVED",
+      "before_clock": 180,
+      "after_clock": 210,
+      "detection": {
+        "alert": true,
+        "quality": "ok",
+        "pressure_mean": 1.5241,
+        "flow_mean": 0.4703,
+        "reason": "模拟阈值异常"
+      }
+    }
+  },
+  "limitation": "少量手工构造的模拟案例，与知识库同作者；不代表真实工业诊断准确率。"
+}
